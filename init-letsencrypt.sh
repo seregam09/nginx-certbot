@@ -3,6 +3,11 @@
 DN=`cat ${PWD}/.env | grep DOMAIN_NAME | cut -d'=' -f2`
 MN=`cat ${PWD}/.env | grep EMAIL_NAME | cut -d'=' -f2`
 
+
+./generation-web-conf.sh
+
+
+
 if ! [ -x "$(command -v docker-compose)" ]; then
   echo 'Error: docker-compose is not installed.' >&2
   exit 1
@@ -79,5 +84,8 @@ docker-compose run --rm --entrypoint "\
     --force-renewal" certbot
 echo
 
+echo "### Add ssl conf for nginx"
+./generation-web-conf.sh ssl
 echo "### Reloading nginx ..."
+
 docker-compose exec nginx nginx -s reload

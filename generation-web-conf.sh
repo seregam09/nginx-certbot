@@ -55,6 +55,4 @@ server {
 }
 " > ./data/conf.d/${DN}.conf
 
-docker exec -d web_nginx nginx -s reload
-
 fi
