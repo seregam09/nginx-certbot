@@ -72,11 +72,14 @@ docker-compose run --rm --entrypoint "\
     --force-renewal" certbot
 echo
 
-echo "### Add ssl conf for domain $DN"
-./generation-web-conf.sh ssl
-echo "### Reloading nginx ..."
-
-docker-compose exec nginx nginx -s reload
+if [ -d $data_path/conf/live/$domains ]; then
+        echo "### Add ssl conf for domain $DN"
+        ./generation-web-conf.sh ssl
+        echo "### Reloading nginx ..."
+        docker-compose exec nginx nginx -s reload
+else
+        echo "ERROR: don't create ssl certificate for domain $DN"
+fi
 
 else 
         echo "not create dir $data_path for letsencrypt files"
