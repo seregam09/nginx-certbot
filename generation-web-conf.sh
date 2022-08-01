@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SSL_ON=$1
-DN=`cat ${PWD}/.env | grep DOMAIN_NAME | cut -d'=' -f2`
+create_ssl=$1
 
+DN=`cat ${PWD}/.env | grep DOMAIN_NAME | cut -d'=' -f2`
 
 echo "server {
     server_name ${DN} www.${DN};
@@ -18,8 +18,7 @@ echo "server {
 }
 " > ./data/conf.d/${DN}.conf
 
-
-if [ "SSl_ON" = "ssl" ]
+if [ $create_ssl ]
 then
     echo "server {
     server_name ${DN} www.${DN};
@@ -54,5 +53,4 @@ server {
     }
 }
 " > ./data/conf.d/${DN}.conf
-
 fi
