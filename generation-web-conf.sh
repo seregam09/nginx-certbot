@@ -41,7 +41,6 @@ server {
     listen 443 ssl http2;
     root /public_html;
 
-    ssl on;
     ssl_certificate     /etc/nginx/ssl/live/${DN}/fullchain.pem;
     ssl_certificate_key /etc/nginx/ssl/live/${DN}/privkey.pem;
     ssl_dhparam         /etc/nginx/ssl/ssl-dhparams.pem;

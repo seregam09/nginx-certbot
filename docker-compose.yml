@@ -5,6 +5,7 @@ services:
     container_name: web_nginx
     image: nginx:alpine
     restart: always
+    entrypoint: "/bin/sh -c 'while :; do sleep 6h & wait ${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       - ./data/public_html:/public_html
       - ./data/conf.d:/etc/nginx/conf.d
@@ -19,9 +20,8 @@ services:
   certbot:
     container_name: certbot
     image: certbot/certbot
-    env_file:
-      - .env
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email $EMAIL_NAME --agree-tos --no-eff-email -d $DOMAIN_NAME -d www.$DOMAIN_NAME
+    restart: always
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait ${!}; done;'"
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/logs:/var/log/letsencrypt
