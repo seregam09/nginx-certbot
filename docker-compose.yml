@@ -23,7 +23,7 @@ services:
     image: certbot/certbot
     env_file:
       - .env
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email admin@admin.com --agree-tos --no-eff-email -d $DOMAIN_NAME -d www.$DOMAIN_NAME
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email $EMAIL_NAME --agree-tos --no-eff-email -d $DOMAIN_NAME -d www.$DOMAIN_NAME
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
