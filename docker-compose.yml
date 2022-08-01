@@ -1,5 +1,4 @@
-version: '3.9'
-
+version: '3'
 
 services:
   nginx:
@@ -28,5 +27,4 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/logs:/var/log/letsencrypt
       - ./data/certbot/www/:/var/www/certbot
-    depends_on:
-      - web-nginx
+
