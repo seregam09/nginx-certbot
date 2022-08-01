@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DN=`cat ${PWD}/.env | grep DOMAIN_NAME`
+DN=`cat ${PWD}/.env | grep DOMAIN_NAME | cut -d'=' -f2`
 
 echo "server {
     server_name ${DN} www.${DN}

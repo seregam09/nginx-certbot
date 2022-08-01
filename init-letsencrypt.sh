@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DN=`cat ${PWD}/.env | grep DOMAIN_NAME`
-MN=`cat ${PWD}/.env | grep EMAIL_NAME`
+DN=`cat ${PWD}/.env | grep DOMAIN_NAME | cut -d'=' -f2`
+MN=`cat ${PWD}/.env | grep EMAIL_NAME | cut -d'=' -f2`
 
 if ! [ -x "$(command -v docker-compose)" ]; then
   echo 'Error: docker-compose is not installed.' >&2
